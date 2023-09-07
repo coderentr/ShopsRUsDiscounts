@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Commands\" />
+    <None Remove="Queries\" />
+    <None Remove="Commands\Request\" />
+    <None Remove="Commands\Response\" />
+    <None Remove="Handlers\" />
+    <None Remove="Handlers\CommandHendlers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Commands\Request\" />
+    <Folder Include="Commands\Response\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Handlers\CommandHendlers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShopsRUsDiscounts.Domain\ShopsRUsDiscounts.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+  </ItemGroup>
+</Project>
