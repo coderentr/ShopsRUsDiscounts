@@ -29,6 +29,7 @@ builder => builder.MigrationsAssembly("ShopsRUsDiscounts.Infrastructure")));
 builder.Services.AddMediatR(typeof(CreateOrderCommandHandler));
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 
 var app = builder.Build();
