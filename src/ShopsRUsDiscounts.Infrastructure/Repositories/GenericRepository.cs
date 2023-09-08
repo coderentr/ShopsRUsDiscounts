@@ -14,7 +14,7 @@ namespace ShopsRUsDiscounts.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public T GetById(int id)
+        public T GetById(Guid id)
         {
             return _dbContext.Set<T>().Find(id);
         }

@@ -13,6 +13,7 @@
     <None Remove="Commands\Response\" />
     <None Remove="Handlers\" />
     <None Remove="Handlers\CommandHendlers\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
@@ -21,6 +22,7 @@
     <Folder Include="Commands\Response\" />
     <Folder Include="Handlers\" />
     <Folder Include="Handlers\CommandHendlers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShopsRUsDiscounts.Domain\ShopsRUsDiscounts.Domain.csproj" />
