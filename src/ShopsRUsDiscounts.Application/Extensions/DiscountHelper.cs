@@ -15,11 +15,11 @@ namespace ShopsRUsDiscounts.Application.Extensions
             }
             else if (type == CustomerType.AffiliateOfStore)
             {
-                return new EmployeDiscountStrategy(10); 
+                return new AffiliateOfStoreDiscountStrategy(10); 
             }
             else if (type == CustomerType.OldCustomer)
             {
-                return new EmployeDiscountStrategy(5);
+                return new OldCustomerDiscountStrategy(5);
             }
             else
             {

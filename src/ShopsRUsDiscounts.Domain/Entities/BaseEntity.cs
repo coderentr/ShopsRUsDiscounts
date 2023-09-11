@@ -6,7 +6,7 @@
 
 		public DateTime CreaatedDate { get; set; } = DateTime.Now.ToUniversalTime();
 
-		public DateTime UpdatedDate { get; set; }
+		public DateTime? UpdatedDate { get; set; }
 	}
 }
 

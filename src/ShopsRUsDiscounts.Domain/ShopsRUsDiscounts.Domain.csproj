@@ -11,11 +11,13 @@
     <None Remove="Enums\" />
     <None Remove="Interfaces\" />
     <None Remove="Factories\" />
+    <None Remove="Events\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Factories\" />
+    <Folder Include="Events\" />
   </ItemGroup>
 </Project>
