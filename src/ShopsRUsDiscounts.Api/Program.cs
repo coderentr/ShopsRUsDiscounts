@@ -50,6 +50,7 @@ builder.Services.AddScoped<IEventPublish, EventPublish>();
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
 
 var app = builder.Build();
