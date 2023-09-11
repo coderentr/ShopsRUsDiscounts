@@ -1,9 +1,13 @@
-﻿using MediatR;
+﻿using MassTransit;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ShopsRUsDiscounts.Api.Helpers;
 using ShopsRUsDiscounts.Application.Handlers.CommandHendlers;
+using ShopsRUsDiscounts.Domain.Events;
 using ShopsRUsDiscounts.Domain.Interfaces;
 using ShopsRUsDiscounts.Infrastructure.Context;
+using ShopsRUsDiscounts.Infrastructure.Cunsomers;
+using ShopsRUsDiscounts.Infrastructure.MessageBroker;
 using ShopsRUsDiscounts.Infrastructure.Repositories;
 
 
@@ -23,10 +27,26 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 
 
 builder.Services.AddDbContext<ShopsRUsDiscountsDBContext>(options => 
-options.UseSqlServer(connectionString,
-builder => builder.MigrationsAssembly("ShopsRUsDiscounts.Infrastructure")));
+options.UseSqlServer(connectionString));
 
 builder.Services.AddMediatR(typeof(CreateOrderCommandHandler));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<SyncCreateInvoiceCunsomer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMQCon")), host => { });
+
+        cfg.ReceiveEndpoint(EventPublish.SyncInvoiceQueue, e =>
+        {
+            e.ConfigureConsumer<SyncCreateInvoiceCunsomer>(context);
+        });
+    });
+});
+
+
+builder.Services.AddScoped<IEventPublish, EventPublish>();
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

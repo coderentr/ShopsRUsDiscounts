@@ -3,10 +3,12 @@ namespace ShopsRUsDiscounts.Application.Extensions
 {
 	public static class Calculate
 	{
-		public static decimal CalculateOrder(decimal price, decimal ratio)
+		public static decimal CalculateInvoiceDiscount(decimal price, decimal ratio)
 		{
-			return price * (ratio / 100);
-		}
+			decimal discount = (Math.Floor(price / 100) * ratio);
+			return discount;
+        }
+
 	}
 }
 

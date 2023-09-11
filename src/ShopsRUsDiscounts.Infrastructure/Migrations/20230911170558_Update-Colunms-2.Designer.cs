@@ -12,8 +12,8 @@ using ShopsRUsDiscounts.Infrastructure.Context;
 namespace ShopsRUsDiscounts.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopsRUsDiscountsDBContext))]
-    [Migration("20230907220637_InitialData")]
-    partial class InitialData
+    [Migration("20230911170558_Update-Colunms-2")]
+    partial class UpdateColunms2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,35 +38,55 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordSald")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ec30cd5b-e1c9-42b9-b26c-6f55903e7ab9"),
+                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9450),
+                            CustomerType = 0,
+                            Email = "a@a.com",
+                            FullName = "mustafa eren"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f3148c3-a239-4b6f-9d36-93f204d9095e"),
+                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9460),
+                            CustomerType = 2,
+                            Email = "b@a.com",
+                            FullName = "ali eren"
+                        },
+                        new
+                        {
+                            Id = new Guid("cb2a620c-6610-49f2-930b-798cb83af812"),
+                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9480),
+                            CustomerType = 1,
+                            Email = "b@a.com",
+                            FullName = "veli eren"
+                        },
+                        new
+                        {
+                            Id = new Guid("acb45c4c-4c99-4104-b96e-e65929e6a614"),
+                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9490),
+                            CustomerType = 3,
+                            Email = "b@a.com",
+                            FullName = "aayşe eren"
+                        });
                 });
 
             modelBuilder.Entity("ShopsRUsDiscounts.Domain.Entities.Discount", b =>
@@ -97,31 +117,33 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                     b.Property<DateTime>("CreaatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DiscountAmount")
+                    b.Property<decimal?>("DiscountAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("InvoiceAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("InvoiceNumber")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceNumber"));
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Invoices");
                 });
@@ -144,15 +166,28 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ShopsRUsDiscounts.Domain.Entities.Invoice", b =>
+                {
+                    b.HasOne("ShopsRUsDiscounts.Domain.Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("ShopsRUsDiscounts.Domain.Entities.Order", b =>
                 {
                     b.HasOne("ShopsRUsDiscounts.Domain.Entities.Customer", "Customer")
                         .WithMany()
