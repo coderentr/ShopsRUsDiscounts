@@ -14,6 +14,9 @@
     <None Remove="Handlers\" />
     <None Remove="Handlers\CommandHendlers\" />
     <None Remove="Extensions\" />
+    <None Remove="Queries\Request\" />
+    <None Remove="Queries\Response\" />
+    <None Remove="Handlers\QueryHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
@@ -23,6 +26,9 @@
     <Folder Include="Handlers\" />
     <Folder Include="Handlers\CommandHendlers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Queries\Request\" />
+    <Folder Include="Queries\Response\" />
+    <Folder Include="Handlers\QueryHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShopsRUsDiscounts.Domain\ShopsRUsDiscounts.Domain.csproj" />
