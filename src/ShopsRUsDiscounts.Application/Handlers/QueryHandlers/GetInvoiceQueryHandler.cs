@@ -30,7 +30,7 @@ namespace ShopsRUsDiscounts.Application.Handlers.QueryHandlers
                         InvoiceAmount = data.InvoiceAmount,
                         OrderId = data.OrderId,
                         Description = data.Description,
-                        DiscountAmount = data.DiscountAmount.Value,
+                        DiscountAmount = data.DiscountAmount,
                         TotalAmount = data.TotalAmount
                     };
                     result.Data = responseData;
@@ -38,17 +38,21 @@ namespace ShopsRUsDiscounts.Application.Handlers.QueryHandlers
                 }
                 else
                 {
-                    result.Data = null;
-                    result.IsSuccess = false;
-                    result.Message = "Invoice's coldn found";
+                    result.Message = "Invoice not found";
                 }
             }
             catch (Exception ex)
             {
-                result.Message = "An unexpected error occurred.";
-                result.IsSuccess = false;
+                if (ex.Message == "Invoice not found")
+                {
+                    result.Message = "Invoice not found"; 
+                }
+                else
+                {
+                    result.Message = "An unexpected error occurred.";
+                }
             }
-            
+
             return result;
         }
     }

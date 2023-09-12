@@ -17,7 +17,12 @@ namespace ShopsRUsDiscounts.Infrastructure.Repositories
 
         public Invoice GetInvoiceByInvoiceNumber(int invoiceNumber)
         {
-            return _dbContext.Invoices.FirstOrDefault(_ => _.InvoiceNumber == invoiceNumber);
+            var invoice = _dbContext.Invoices.FirstOrDefault(_ => _.InvoiceNumber == invoiceNumber);
+            if (invoice == null)
+            {
+                throw new Exception("Invoice not found");
+            }
+            return invoice;
         }
     }
 }
