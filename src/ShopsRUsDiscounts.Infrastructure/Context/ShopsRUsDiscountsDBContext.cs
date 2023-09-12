@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using ShopsRUsDiscounts.Domain.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ShopsRUsDiscounts.Infrastructure.Context
 {
@@ -19,6 +20,11 @@ namespace ShopsRUsDiscounts.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
+        }
+
+        public void EnsureDatabaseMigrated()
+        {
+            Database.Migrate();
         }
     }
 

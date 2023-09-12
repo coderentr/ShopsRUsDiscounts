@@ -19,15 +19,8 @@ namespace ShopsRUsDiscounts.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    BaseQueryResponse<GetInvoiceQueryResponse> response = await _mediator.Send(request);
-                    return Ok(response);
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+                BaseQueryResponse<GetInvoiceQueryResponse> response = await _mediator.Send(request);
+                return Ok(response);
             }
             catch (Exception ex)
             {

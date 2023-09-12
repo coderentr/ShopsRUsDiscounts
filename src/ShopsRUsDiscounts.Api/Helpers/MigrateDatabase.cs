@@ -14,7 +14,7 @@ namespace ShopsRUsDiscounts.Api.Helpers
                 {
                     try
                     {
-                        appContext.Database.Migrate();
+                        appContext.EnsureDatabaseMigrated();
                     }
                     catch (Exception ex)
                     {
