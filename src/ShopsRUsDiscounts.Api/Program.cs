@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ShopsRUsDiscounts.Api.Helpers;
 using ShopsRUsDiscounts.Application.Handlers.CommandHendlers;
 using ShopsRUsDiscounts.Domain.Events;
@@ -31,27 +32,12 @@ options.UseSqlServer(connectionString));
 
 builder.Services.AddMediatR(typeof(CreateOrderCommandHandler));
 
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumer<SyncCreateInvoiceCunsomer>();
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMQCon")), host => { });
-
-        cfg.ReceiveEndpoint(EventPublish.SyncInvoiceQueue, e =>
-        {
-            e.ConfigureConsumer<SyncCreateInvoiceCunsomer>(context);
-        });
-    });
-});
+//Masstransit configuration
+builder.Services.ConfigureMassTransit(builder.Configuration);
 
 
-builder.Services.AddScoped<IEventPublish, EventPublish>();
-
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-
+//DI configuration
+builder.Services.AddCustomServices();
 
 var app = builder.Build();
 
