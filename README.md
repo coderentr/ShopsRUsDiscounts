@@ -56,6 +56,8 @@ Tüketici (consumer), bu kuyruğu dinler ve siparişin fatura bilgisini veritaba
 #### Get Endpointi
 
 -  Bu endpoint, bir fatura numarası (`InvoiceNumber`) verildiğinde ilgili faturanın bilgilerini döndürür.
+-  
 
 
+ #### Test readme dosyasını okumak için [**tıklayın.**](https://github.com/coderentr/ShopsRUsDiscounts/blob/main/test/UnitTest.Application/TestReadme.md)
 
