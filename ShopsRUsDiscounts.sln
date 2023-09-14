@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A356A70-843A-4F40-9886-A9C1F6A5B11D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{502D8AE3-DF31-4493-845A-2D1A67130477}"
+	ProjectSection(SolutionItems) = preProject
+		test\UnitTest.Application\TestReadme.md = test\UnitTest.Application\TestReadme.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopsRUsDiscounts.Domain", "src\ShopsRUsDiscounts.Domain\ShopsRUsDiscounts.Domain.csproj", "{5B7DCC85-DA6F-4D20-B9D6-881CDC03B77A}"
 EndProject
