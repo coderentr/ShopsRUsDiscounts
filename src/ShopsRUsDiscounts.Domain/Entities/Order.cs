@@ -5,7 +5,7 @@ namespace ShopsRUsDiscounts.Domain.Entities
 	{
 		public virtual Customer Customer { get; set; }
         public decimal Price { get; set; }
-		public decimal DicountPrice { get; set; }
+		public decimal DicountedPrice { get; set; }
     }
 }
 

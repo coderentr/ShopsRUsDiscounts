@@ -12,8 +12,8 @@ using ShopsRUsDiscounts.Infrastructure.Context;
 namespace ShopsRUsDiscounts.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopsRUsDiscountsDBContext))]
-    [Migration("20230911170558_Update-Colunms-2")]
-    partial class UpdateColunms2
+    [Migration("20230914104104_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,12 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -57,55 +63,114 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ec30cd5b-e1c9-42b9-b26c-6f55903e7ab9"),
-                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9450),
+                            Id = new Guid("5abae814-6113-417b-aec1-8afeb8dc01e1"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5090),
                             CustomerType = 0,
                             Email = "a@a.com",
-                            FullName = "mustafa eren"
+                            FullName = "mustafa eren",
+                            IsActive = true,
+                            IsDelete = false
                         },
                         new
                         {
-                            Id = new Guid("9f3148c3-a239-4b6f-9d36-93f204d9095e"),
-                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9460),
+                            Id = new Guid("af60dea2-0ee8-4be6-93df-7e034052a108"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5100),
                             CustomerType = 2,
                             Email = "b@a.com",
-                            FullName = "ali eren"
+                            FullName = "ali eren",
+                            IsActive = true,
+                            IsDelete = false
                         },
                         new
                         {
-                            Id = new Guid("cb2a620c-6610-49f2-930b-798cb83af812"),
-                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9480),
+                            Id = new Guid("07f93dac-1223-43e1-a8d2-3d2f67340b85"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5120),
                             CustomerType = 1,
                             Email = "b@a.com",
-                            FullName = "veli eren"
+                            FullName = "veli eren",
+                            IsActive = true,
+                            IsDelete = false
                         },
                         new
                         {
-                            Id = new Guid("acb45c4c-4c99-4104-b96e-e65929e6a614"),
-                            CreaatedDate = new DateTime(2023, 9, 11, 20, 5, 58, 489, DateTimeKind.Local).AddTicks(9490),
+                            Id = new Guid("db94b670-8846-439c-b5ba-9cad90e66ffd"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5130),
                             CustomerType = 3,
                             Email = "b@a.com",
-                            FullName = "aayşe eren"
+                            FullName = "aayşe eren",
+                            IsActive = true,
+                            IsDelete = false
                         });
                 });
 
             modelBuilder.Entity("ShopsRUsDiscounts.Domain.Entities.Discount", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTime>("CreaatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerType")
                         .HasColumnType("int");
 
-                    b.Property<float>("DiscountRatio")
-                        .HasColumnType("real");
+                    b.Property<decimal>("DiscountRatio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerType")
+                        .IsUnique();
+
                     b.ToTable("Discounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e3edac69-1cb3-4c11-aad6-5feb903793aa"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5210),
+                            CustomerType = 0,
+                            DiscountRatio = 0m,
+                            IsActive = true,
+                            IsDelete = false
+                        },
+                        new
+                        {
+                            Id = new Guid("ea695148-6b68-46c2-9697-ccf8f54a1bd2"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5220),
+                            CustomerType = 2,
+                            DiscountRatio = 10m,
+                            IsActive = true,
+                            IsDelete = false
+                        },
+                        new
+                        {
+                            Id = new Guid("6e772212-bec4-4f5b-a47f-4b66ee1967d4"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5240),
+                            CustomerType = 1,
+                            DiscountRatio = 30m,
+                            IsActive = true,
+                            IsDelete = false
+                        },
+                        new
+                        {
+                            Id = new Guid("90ded744-5c1b-469f-b7da-93eea712e8d2"),
+                            CreaatedDate = new DateTime(2023, 9, 14, 13, 41, 4, 912, DateTimeKind.Local).AddTicks(5250),
+                            CustomerType = 3,
+                            DiscountRatio = 5m,
+                            IsActive = true,
+                            IsDelete = false
+                        });
                 });
 
             modelBuilder.Entity("ShopsRUsDiscounts.Domain.Entities.Invoice", b =>
@@ -131,6 +196,12 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceNumber"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
@@ -160,8 +231,14 @@ namespace ShopsRUsDiscounts.Infrastructure.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("DicountPrice")
+                    b.Property<decimal>("DicountedPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

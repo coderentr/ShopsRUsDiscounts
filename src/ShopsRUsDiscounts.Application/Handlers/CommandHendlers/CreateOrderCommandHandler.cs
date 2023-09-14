@@ -12,13 +12,18 @@ namespace ShopsRUsDiscounts.Application.Handlers.CommandHendlers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IDiscountRepository _discountRepository;
         private readonly IEventPublish _eventPublish;
 
-        public CreateOrderCommandHandler(IOrderRepository orderRepository, ICustomerRepository customerRepository, IEventPublish eventPublish)
+        public CreateOrderCommandHandler(IOrderRepository orderRepository,
+            ICustomerRepository customerRepository,
+            IEventPublish eventPublish,
+            IDiscountRepository discountRepository)
         {
             _orderRepository = orderRepository;
             _customerRepository = customerRepository;
             _eventPublish = eventPublish;
+            _discountRepository = discountRepository;
         }
 
         public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
@@ -28,7 +33,9 @@ namespace ShopsRUsDiscounts.Application.Handlers.CommandHendlers
                 var customer = _customerRepository.GetById(request.CustomerId);
                 if (customer is not null)
                 {
-                    var discountStrategy = DiscountHelper.GetDiscountStrategy(customer.CustomerType);
+                    var discount = _discountRepository.GetDiscountByCustomerType(customer.CustomerType);
+                    decimal ratio = discount != null ? discount.DiscountRatio : 0;
+                    var discountStrategy = DiscountHelper.GetDiscountStrategy(customer.CustomerType, ratio);
                     decimal discountPrice= discountStrategy.CalculateDiscount(request.OrderPrice);
 
                     Order order = new Order
@@ -36,12 +43,12 @@ namespace ShopsRUsDiscounts.Application.Handlers.CommandHendlers
                         Id = Guid.NewGuid(),
                         Customer = customer,
                         Price = request.OrderPrice,
-                        DicountPrice = discountPrice,
+                        DicountedPrice = discountPrice,
                     };
                     _orderRepository.Add(order);
 
                     decimal invoiceDiscountAmount = Calculate.CalculateInvoiceDiscount(discountPrice, 5);
-                    decimal incoiceAmount = order.Price - invoiceDiscountAmount;
+                    decimal incoiceAmount = order.DicountedPrice - invoiceDiscountAmount;
 
                     _eventPublish.Publish(new SyncInvoiceEvent {
                         Invoice = new Invoice {

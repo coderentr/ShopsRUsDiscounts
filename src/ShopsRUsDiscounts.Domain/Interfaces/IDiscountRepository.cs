@@ -4,8 +4,9 @@ using ShopsRUsDiscounts.Domain.Enums;
 
 namespace ShopsRUsDiscounts.Domain.Interfaces
 {
-	public interface IOrderRepository :IRepository<Order>
+	public interface IDiscountRepository :IRepository<Discount>
 	{
+		Discount GetDiscountByCustomerType(CustomerType customerType);
 	}
 }
 

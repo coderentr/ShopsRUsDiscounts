@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using ShopsRUsDiscounts.Domain.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using ShopsRUsDiscounts.Infrastructure.Extensions;
 
 namespace ShopsRUsDiscounts.Infrastructure.Context
 {
@@ -20,24 +20,11 @@ namespace ShopsRUsDiscounts.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
+            modelBuilder.Configure();
         }
-
         public void EnsureDatabaseMigrated()
         {
             Database.Migrate();
-        }
-    }
-
-    public static class ModelBuilderExtensions
-    {
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Customer>().HasData(
-                new Customer { Id = Guid.NewGuid(), CreaatedDate=DateTime.Now,CustomerType=Domain.Enums.CustomerType.Standard, Email="a@a.com", FullName="mustafa eren"},
-                new Customer { Id = Guid.NewGuid(), CreaatedDate=DateTime.Now,CustomerType=Domain.Enums.CustomerType.AffiliateOfStore, Email="b@a.com", FullName="ali eren"},
-                new Customer { Id = Guid.NewGuid(), CreaatedDate=DateTime.Now,CustomerType=Domain.Enums.CustomerType.Employee, Email="b@a.com", FullName="veli eren"},
-                new Customer { Id = Guid.NewGuid(), CreaatedDate=DateTime.Now,CustomerType=Domain.Enums.CustomerType.OldCustomer, Email="b@a.com", FullName="aayşe eren"}
-              );
         }
     }
 }
