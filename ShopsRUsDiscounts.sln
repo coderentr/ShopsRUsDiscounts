@@ -25,6 +25,12 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Application", "test\UnitTest.Application\UnitTest.Application.csproj", "{847F6CCD-7236-4F3B-A2FD-E5F8DB889F3E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbDiagram", "DbDiagram", "{7DFD6E0F-613F-43F3-8D63-FF90A2A44236}"
+	ProjectSection(SolutionItems) = preProject
+		ShopRUsDiscountDBDiagram.png = ShopRUsDiscountDBDiagram.png
+		ShopsRUsDiscounts.drawio = ShopsRUsDiscounts.drawio
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

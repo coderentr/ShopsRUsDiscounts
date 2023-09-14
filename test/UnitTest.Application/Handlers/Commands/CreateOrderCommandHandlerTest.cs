@@ -24,8 +24,9 @@ namespace ShopsRUsDiscounts.Application.Tests.Handlers
 
             var orderRepositoryMock = new Mock<IOrderRepository>();
             var eventPublishMock = new Mock<IEventPublish>();
+            var discountRepositoryMock = new Mock<IDiscountRepository>();
 
-            var handler = new CreateOrderCommandHandler(orderRepositoryMock.Object, customerRepositoryMock.Object, eventPublishMock.Object);
+            var handler = new CreateOrderCommandHandler(orderRepositoryMock.Object, customerRepositoryMock.Object, eventPublishMock.Object, discountRepositoryMock.Object);
             var request = new CreateOrderCommandRequest { CustomerId = customerId, OrderPrice = orderPrice };
 
             var response = handler.Handle(request, CancellationToken.None).Result;
@@ -45,8 +46,9 @@ namespace ShopsRUsDiscounts.Application.Tests.Handlers
 
             var orderRepositoryMock = new Mock<IOrderRepository>();
             var eventPublishMock = new Mock<IEventPublish>();
+            var discountRepositoryMock = new Mock<IDiscountRepository>();
 
-            var handler = new CreateOrderCommandHandler(orderRepositoryMock.Object, customerRepositoryMock.Object, eventPublishMock.Object);
+            var handler = new CreateOrderCommandHandler(orderRepositoryMock.Object, customerRepositoryMock.Object, eventPublishMock.Object, discountRepositoryMock.Object);
             var request = new CreateOrderCommandRequest { CustomerId = customerId, OrderPrice = orderPrice };
 
             var response = handler.Handle(request, CancellationToken.None).Result;
