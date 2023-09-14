@@ -7,19 +7,19 @@ namespace ShopsRUsDiscounts.Application.Extensions
 {
 	public static class DiscountHelper
 	{
-        public static IDiscountStrategyFactory GetDiscountStrategy(CustomerType type)
+        public static IDiscountStrategyFactory GetDiscountStrategy(CustomerType type, decimal ratio)
         {
             if (type == CustomerType.Employee)
             {
-                return new EmployeDiscountStrategy(30); 
+                return new EmployeDiscountStrategy(ratio); 
             }
             else if (type == CustomerType.AffiliateOfStore)
             {
-                return new AffiliateOfStoreDiscountStrategy(10); 
+                return new AffiliateOfStoreDiscountStrategy(ratio); 
             }
             else if (type == CustomerType.OldCustomer)
             {
-                return new OldCustomerDiscountStrategy(5);
+                return new OldCustomerDiscountStrategy(ratio);
             }
             else
             {

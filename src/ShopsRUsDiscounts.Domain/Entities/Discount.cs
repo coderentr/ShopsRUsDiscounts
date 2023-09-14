@@ -1,13 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using ShopsRUsDiscounts.Domain.Enums;
 
 namespace ShopsRUsDiscounts.Domain.Entities
 {
-	public class Discount 
+	public class Discount :BaseEntity
 	{
-		public int Id { get; set; }
-		public float DiscountRatio { get; set; }
-		public CustomerType CustomerType { get; set; }
+		public decimal DiscountRatio { get; set; }
+
+        [Required]
+        public CustomerType CustomerType { get; set; }
 	}
 }
 
